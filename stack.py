@@ -16,7 +16,7 @@ class Stack():
 
     def peak(self):
         if not self.is_empty():
-            last_index = len(self.items()) - 1
+            last_index = len(self.items) - 1
             return self.items[last_index]
 
     def get_stack(self):
