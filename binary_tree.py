@@ -17,22 +17,42 @@ class BinaryTree:
     def print_tree(self, traversal_type):
         if traversal_type == "preorder":
             return self.peorder_print(tree.root, "")
+        elif traversal_type == "inorder":
+            return self.inorder_print(tree.root,"")
+        elif traversal_type == "postorder":
+            return self.postorder_print(tree.root, "")
         else:
             print("Traversal type " + str(traversal_type) + " is not supported.")
             return False
 
-#Start is updated on every single recursive call
+#Start is the current node and updated on every single recursive call
 #Traversal is a string that prints out to the screen and updated on every recursive call
     def peorder_print(self, start, traversal):
         #Pre-order Traversal - Root-Left-Right
         if start:
-            #At every recursive call print out the current node value and concatenate to start string)
+            #At every recursive call print out the current node value and concatenate to traversal string)
             traversal += (str(start.value) + "-")
             #recursively calling preorder print with left subtree as the first argument
             #Passing the traversal string as the second to keep track of nodes visited
             traversal = self.peorder_print(start.left, traversal)
             #Pass the right child of the current node as the first argument
             traversal = self.peorder_print(start.right, traversal)
+        return traversal
+
+    def inorder_print(self, start, traversal):
+        #Left-Root-Right
+        if start:
+            traversal = self.inorder_print(start.left, traversal)
+            traversal += (str(start.value) + "-")
+            traversal = self.inorder_print(start.right, traversal)
+        return traversal
+    
+    def postorder_print(self, start, traversal):
+        #Left-Right-Root
+        if start:
+            traversal = self.postorder_print(start.left, traversal)
+            traversal = self.postorder_print(start.right, traversal)
+            traversal += (str(start.value) + "-")
         return traversal
 
 
@@ -53,3 +73,5 @@ tree.root.right.right = Node(7)
 
 
 print(tree.print_tree("preorder"))
+print(tree.print_tree("inorder"))
+print(tree.print_tree("postorder"))
