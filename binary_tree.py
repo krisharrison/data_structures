@@ -1,6 +1,32 @@
 #Binary Tree Implementation
 #Three methods of depth first search
 
+#Stack class for reverse level-order traversal of a binary tree
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self,item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+
+    def is_empty(self):
+        return self.items == []
+    
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+
+    def size(self):
+        return len(self.items)
+
+    def __len__(self):
+        return self.size()
+
+
 #Queue class for level-order traversal of a binary tree
 class Queue:
     def __init__(self):
@@ -49,6 +75,8 @@ class BinaryTree:
             return self.postorder_print(tree.root, "")
         elif traversal_type == "levelorder":
             return self.level_order_print(tree.root)
+        elif traversal_type == "reverselevelorder":
+            return self.reverse_levelorder_print(tree.root)
         else:
             print("Traversal type " + str(traversal_type) + " is not supported.")
             return False
@@ -102,8 +130,31 @@ class BinaryTree:
                 queue.enqueue(node.right)
         
         return traversal
+    
+    def reverse_levelorder_print(self, start):
+        if start is None:
+            return
 
-                
+        queue = Queue()
+        stack = Stack()
+        queue.enqueue(start)
+
+        traversal = ""
+        while len(queue) > 0:
+            node = queue.dequeue()
+            stack.push(node)
+
+            if node.right:
+                queue.enqueue(node.right)
+            if node.left:
+                queue.enqueue(node.left)
+         
+        while len(stack) > 0:
+            node = stack.pop()
+            traversal += str(node.value) + "-"
+        return traversal
+       
+
 #Root of the tree
 #tree = BinaryTree(1)
 ##Left child of root
@@ -129,4 +180,5 @@ tree.root.left.right = Node(5)
 #print(tree.print_tree("preorder"))
 #print(tree.print_tree("inorder"))
 #print(tree.print_tree("postorder"))
-print(tree.print_tree("levelorder"))
+#print(tree.print_tree("levelorder"))
+print(tree.print_tree("reverselevelorder"))
