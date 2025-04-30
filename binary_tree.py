@@ -118,7 +118,7 @@ class BinaryTree:
 
         queue = Queue()
         queue.enqueue(start)
-
+        
         traversal = ""
         while len(queue) > 0:
             traversal += (str(queue.peek()) + "-")
@@ -180,5 +180,5 @@ tree.root.left.right = Node(5)
 #print(tree.print_tree("preorder"))
 #print(tree.print_tree("inorder"))
 #print(tree.print_tree("postorder"))
-#print(tree.print_tree("levelorder"))
-print(tree.print_tree("reverselevelorder"))
+print(tree.print_tree("levelorder"))
+#print(tree.print_tree("reverselevelorder"))
